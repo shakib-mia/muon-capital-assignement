@@ -46,7 +46,10 @@ const Navbar = () => {
 
           <ul className="mt-[36px] flex flex-col gap-[24px]">
             {listItem.map(({ icon, text }, key) => (
-              <li className="flex items-center gap-[23px] hover:bg-[#353945] py-[9px] px-[15px] rounded-[12px] leading-[24px]">
+              <li
+                key={key}
+                className="flex items-center gap-[23px] hover:bg-[#353945] py-[9px] px-[15px] rounded-[12px] leading-[24px]"
+              >
                 <img src={icon} className="w-[20px]" alt="" />
                 <h5>{text}</h5>
               </li>

@@ -1,30 +1,34 @@
-// import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Topbar from "../Topbar/Topbar";
 import moneyBag from "./../../assets/icons/money-bag.webp";
 import plus from "./../../assets/icons/plus.webp";
 import { TodoType } from "../../types/types";
 import pen from "./../../assets/icons/pen.webp";
+import { addTodo } from "../../reducers/todoReducers";
 
 const Main = () => {
   const todos = useSelector((state) => state) as TodoType[];
+  const dispatch = useDispatch();
+  // console.log(todos);
 
-  // console.log(myArray.length);
+  const addTodoForm = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-  const addTodo = (e: any) => {
     const todo = {
-      title: e.target.todoTitle.value,
-      description: e.target.todoDescription.value,
+      title: e.currentTarget.todoTitle.value,
+      description: e.currentTarget.todoDescription.value,
     };
 
-    if (e.target.todoTitle.value.length < 3) {
+    if (e.currentTarget.todoTitle.value.length < 3) {
       alert("Invalid Title");
-    } else if (e.target.todoDescription.value.length < 3) {
+    } else if (e.currentTarget.todoDescription.value.length < 3) {
       alert("Invalid Description");
     } else {
-      addTodo(todo);
+      dispatch(addTodo(todo));
+      // console.log(todo);
+      e.currentTarget.reset();
     }
-    e.target.reset();
   };
 
   return (
@@ -39,7 +43,8 @@ const Main = () => {
             </h1>
             <form
               className="bg-[#191B20] p-[13px] rounded-[16px]"
-              onSubmit={addTodo}
+              onSubmit={addTodoForm}
+              id="form"
             >
               <div className="flex items-start justify-between">
                 <div className="flex gap-[7.5px] items-center">
@@ -57,6 +62,7 @@ const Main = () => {
                   id="plus"
                   value=""
                   alt="plus"
+                  // onClick={addTodo}a
                   className="cursor-pointer w-[27px] h-[27px]"
                   style={{
                     backgroundImage: `url(${plus})`,
@@ -76,7 +82,7 @@ const Main = () => {
             <div className="mt-[15px] flex flex-col gap-[7px]">
               {todos.map(({ title, description }, id) => (
                 <li
-                  className="bg-[#191B20] py-[19px] px-[14px] rounded-[16px]"
+                  className="bg-[#191B20] py-[19px] px-[14px] rounded-[16px] list-none"
                   key={id}
                 >
                   <div className="flex items-start justify-between">

@@ -10,11 +10,6 @@ const initialState = [
   },
 ];
 
-// interface Todo {
-//   title: String;
-//   description: String;
-// }
-
 export const addTodo = (Todo: TodoType) => ({
   type: ADD_TODO,
   payload: Todo,
@@ -22,12 +17,11 @@ export const addTodo = (Todo: TodoType) => ({
 
 export const todoReducer = (
   state = initialState,
-  action: { type: String },
-  todo: TodoType
+  action: { type: String; payload: TodoType }
 ) => {
   switch (action.type) {
     case ADD_TODO:
-      return [...state, todo];
+      return [...state, action.payload];
 
     default:
       return state;
