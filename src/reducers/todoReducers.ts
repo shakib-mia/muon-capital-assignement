@@ -5,8 +5,12 @@ const ADD_TODO = "ADD_TODO";
 
 const initialState = [
   {
-    title: "Title",
-    description: "Description",
+    title: "Carrot",
+    description: "Carrot Improves eyesight.",
+  },
+  {
+    title: "Bicycle",
+    description: "Bicycle makes commuting easier.",
   },
 ];
 
