@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Topbar from "../Topbar/Topbar";
 import moneyBag from "./../../assets/icons/money-bag.webp";
@@ -10,7 +10,6 @@ import { addTodo } from "../../reducers/todoReducers";
 const Main = () => {
   const todos = useSelector((state) => state) as TodoType[];
   const dispatch = useDispatch();
-  // console.log(todos);
 
   const addTodoForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
