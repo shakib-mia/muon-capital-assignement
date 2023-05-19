@@ -48,7 +48,7 @@ const Navbar = () => {
             {listItem.map(({ icon, text }, key) => (
               <li
                 key={key}
-                className="flex items-center gap-[23px] hover:bg-[#353945] py-[9px] px-[15px] rounded-[12px] leading-[24px]"
+                className="flex items-center gap-[23px] hover:bg-[#353945] py-[9px] px-[15px] rounded-[12px] leading-[24px] cursor-pointer"
               >
                 <img src={icon} className="w-[20px]" alt="" />
                 <h5>{text}</h5>
