@@ -1,8 +1,17 @@
 // import { TodoType } from "../../types/types";
+import { useDispatch } from "react-redux";
 import moneyBag from "./../../assets/icons/money-bag.webp";
 import pen from "./../../assets/icons/pen.webp";
+import { setIsVisible } from "../../reducers/visibilityReducers";
 
-const ListItem = ({ todo }: any) => {
+const ListItem = ({ todo, todoId, itemId }: any) => {
+  const dispatch = useDispatch();
+  // const showEdit = () => {
+  //   // alert("dfksdj");
+  // };
+
+  // console.log(todoId);
+
   return (
     <li
       className="bg-[#191B20] py-[19px] px-[14px] rounded-[16px] list-none"
@@ -16,10 +25,11 @@ const ListItem = ({ todo }: any) => {
 
         <input
           type="submit"
-          id="plus"
+          id="pen"
           value=""
-          alt="plus"
+          alt="pen"
           className="cursor-pointer w-[27px] h-[27px]"
+          onClick={() => dispatch(setIsVisible(true, todoId, itemId))}
           style={{
             backgroundImage: `url(${pen})`,
             backgroundSize: "100%",

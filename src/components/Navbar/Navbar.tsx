@@ -58,7 +58,7 @@ const Navbar = () => {
         </div>
         <div className="h-2/12">
           <div className="px-[12px] flex gap-[6.66px]">
-            <button className="px-[15px] py-[7.5px] rounded-[10px] bg-[#353945] flex items-center justify-between">
+            <button className="px-[15px] py-[7.5px] rounded-[10px] bg-[#353945] flex items-center justify-between gap-[6px]">
               <img src={logo} alt="Logo" />
               <h2 className="text-[14px] font-semibold">$0.90</h2>
             </button>

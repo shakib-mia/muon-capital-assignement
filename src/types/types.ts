@@ -9,7 +9,23 @@ export type TodoList = {
   todo: TodoType[];
 }[];
 
+// export type anotherType = {
+//   heading: String;
+//   todo: { title: String; description: String }[];
+// };
+
 export type anotherType = {
-  heading: String;
-  todo: { title: String; description: String }[];
-}[];
+  firstReducer: {
+    heading: String;
+    todo: { title: String; description: String }[];
+  }[];
+
+  secondReducer: {
+    visibility: Boolean;
+    todoId: {
+      description: string;
+      name: String;
+      title: string;
+    };
+  };
+};

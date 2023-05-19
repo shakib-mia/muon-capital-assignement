@@ -2,7 +2,9 @@ import React from "react";
 import moneyBag from "./../../assets/icons/money-bag.webp";
 import pen from "./../../assets/icons/pen.webp";
 
-const Todo = ({ title, description }) => {
+const Todo = (props: { title: String; description: String }) => {
+  const { title, description } = props;
+
   return (
     <>
       <div className="flex items-start justify-between">
@@ -13,9 +15,9 @@ const Todo = ({ title, description }) => {
 
         <input
           type="submit"
-          id="plus"
+          id="pen"
           value=""
-          alt="plus"
+          alt="pen"
           className="cursor-pointer w-[27px] h-[27px]"
           style={{
             backgroundImage: `url(${pen})`,

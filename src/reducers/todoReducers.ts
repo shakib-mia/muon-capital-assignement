@@ -3,18 +3,7 @@ import { TodoType } from "./../types/types";
 
 const ADD_TODO = "ADD_TODO";
 const ADD_TODO_LIST = "ADD_TODO_LIST";
-// const REMOVE_TODO = "REMOVE_TODO";
-
-// const initialState = [
-//   {
-//     title: "Carrot",
-//     description: "Carrot Improves eyesight.",
-//   },
-//   {
-//     title: "Bicycle",
-//     description: "Bicycle makes commuting easier.",
-//   },
-// ];
+const EDIT_TODO = "EDIT_TODO";
 
 const initialState = [
   {
@@ -59,12 +48,19 @@ export const addTodoList = (heading: String) => ({
   payload: { heading },
 });
 
+export const editTodo = (title: String, description: String) => ({
+  type: EDIT_TODO,
+  payload: { title, description },
+});
+
 export const todoReducer = (
   state = initialState,
   action: {
     type: String;
     payload: {
+      itemId: number;
       Todo: {
+        todoId: number;
         title: string;
         description: string;
         name: string;
@@ -78,6 +74,7 @@ export const todoReducer = (
 
     if (found) {
       found[0].todo.push(action.payload.Todo);
+      // console.log(found);
 
       return [...state, found[0]];
     }
@@ -89,6 +86,11 @@ export const todoReducer = (
     };
 
     return [...state, data];
+  } else if (action.type === EDIT_TODO) {
+    // console.log(state);
+    console.log(action.payload);
+
+    return state;
   } else {
     return state;
   }

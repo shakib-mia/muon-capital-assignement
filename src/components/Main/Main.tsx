@@ -6,16 +6,19 @@ import plus from "./../../assets/icons/plus.webp";
 import { anotherType } from "../../types/types";
 import ListItem from "../ListItem/ListItem";
 import { addTodo, addTodoList } from "../../reducers/todoReducers";
+import Drawer from "../Drawer/Drawer";
 
 const Main = () => {
   const todos = useSelector((state) => state) as anotherType;
   const dispatch = useDispatch();
+  const { secondReducer } = useSelector((state) => state) as anotherType;
+  const { visibility } = secondReducer;
+
+  // console.log(todos);
 
   const addTodoForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // console.log(e.target.name);
     const target = e.target as HTMLFormElement;
-    // console.log(target.name);
 
     const todo = {
       title: e.currentTarget.todoTitle.value,
@@ -37,17 +40,17 @@ const Main = () => {
     }
   };
 
-  // console.log(todos);
-  // todos.map((item) => item.todo.map((i) => console.log(i)));
-
   function removeDuplicates(arr: {}[]) {
     let uniqueSet = new Set(arr);
     let uniqueArr = Array.from(uniqueSet);
     // console.log(uniqueArr);
     return uniqueArr;
   }
+  // console.log(todos.firstReducer);
 
-  const uniqueArray = removeDuplicates(todos) as anotherType;
+  const uniqueArray = removeDuplicates(
+    todos.firstReducer
+  ) as anotherType["firstReducer"];
 
   const handleTodoListSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -59,13 +62,18 @@ const Main = () => {
     }
   };
 
+  // console.log(todos);
   return (
     <div className="w-[82%] text-white">
       <Topbar />
 
       <div className="flex">
-        <div className="w-3/4 h-screen grid grid-cols-3 gap-[13px] border-r-[5px] border-[#242731] p-[18px]">
-          {uniqueArray?.map((item, id) => (
+        <div
+          className={`
+            ${visibility ? "w-3/4" : "w-full"}
+           h-screen grid grid-cols-3 gap-[13px] border-r-[5px] border-[#242731] p-[18px]`}
+        >
+          {uniqueArray.map((item, id) => (
             <section key={id}>
               <h1 className="bg-[#242731] p-[15px] rounded-[12px] text-[16px] font-semibold mb-[3px]">
                 {item.heading}
@@ -109,7 +117,7 @@ const Main = () => {
               </form>
               <div className="mt-[15px] flex flex-col gap-[7px]">
                 {item.todo?.map((todo, id) => (
-                  <ListItem todo={todo} key={id} />
+                  <ListItem todo={todo} key={id} todoId={todo} />
                 ))}
               </div>
             </section>
@@ -140,7 +148,7 @@ const Main = () => {
             </form>
           </section>
         </div>
-        <div className="w-1/4"></div>
+        {visibility && <Drawer />}
       </div>
     </div>
   );
