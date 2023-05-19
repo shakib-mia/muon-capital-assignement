@@ -2,6 +2,7 @@ import { TodoType } from "./../types/types";
 // import { TodoType } from "../types/types";
 
 const ADD_TODO = "ADD_TODO";
+const ADD_TODO_LIST = "ADD_TODO_LIST";
 // const REMOVE_TODO = "REMOVE_TODO";
 
 // const initialState = [
@@ -53,27 +54,41 @@ export const addTodo = (Todo: TodoType, name: String) => ({
   payload: { Todo, name },
 });
 
+export const addTodoList = (heading: String) => ({
+  type: ADD_TODO_LIST,
+  payload: { heading },
+});
+
 export const todoReducer = (
   state = initialState,
   action: {
     type: String;
-    payload: { Todo: { title: string; description: string; name: string } };
+    payload: {
+      Todo: {
+        title: string;
+        description: string;
+        name: string;
+      };
+      heading: string;
+    };
   }
 ) => {
   if (action.type === ADD_TODO) {
-    // console.log(action);
     const found = state.filter((st) => st.heading === action.payload.Todo.name);
 
     if (found) {
       found[0].todo.push(action.payload.Todo);
 
       return [...state, found[0]];
-      // return found;
-
-      // console.log(found);
-      // state.find
-      // console.log(state);
     }
+  } else if (action.type === ADD_TODO_LIST) {
+    const { heading } = action.payload;
+    const data = {
+      heading,
+      todo: [],
+    };
+
+    return [...state, data];
   } else {
     return state;
   }

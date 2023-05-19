@@ -5,7 +5,7 @@ import moneyBag from "./../../assets/icons/money-bag.webp";
 import plus from "./../../assets/icons/plus.webp";
 import { anotherType } from "../../types/types";
 import ListItem from "../ListItem/ListItem";
-import { addTodo } from "../../reducers/todoReducers";
+import { addTodo, addTodoList } from "../../reducers/todoReducers";
 
 const Main = () => {
   const todos = useSelector((state) => state) as anotherType;
@@ -48,6 +48,16 @@ const Main = () => {
   }
 
   const uniqueArray = removeDuplicates(todos) as anotherType;
+
+  const handleTodoListSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const target = e.target as HTMLFormElement;
+
+    if (e.currentTarget.todoListName.value) {
+      dispatch(addTodoList(target.todoListName.value));
+      e.currentTarget.reset();
+    }
+  };
 
   return (
     <div className="w-[82%] text-white">
@@ -105,16 +115,30 @@ const Main = () => {
             </section>
           ))}
 
-          {/* <section>
-            <h1 className="bg-[#242731] p-[15px] rounded-[12px] text-[16px] font-semibold mb-[3px]">
-              List : Empty List
-            </h1>
-          </section>
           <section>
-            <h1 className="bg-[#242731] p-[15px] rounded-[12px] text-[16px] font-semibold mb-[3px]">
-              List : Things to Buy
-            </h1>
-          </section> */}
+            <form
+              onSubmit={handleTodoListSubmit}
+              className="bg-[#242731] p-[15px] rounded-[12px] text-[16px] font-semibold mb-[3px] text-[#6C6C6C] flex justify-between"
+            >
+              <input
+                type="text"
+                placeholder="Add Todo List"
+                name="todoListName"
+                className="bg-transparent focus:outline-none text-white placeholder:text-[#6C6C6C]"
+              />
+              <input
+                type="submit"
+                id="plus"
+                value=""
+                alt="plus"
+                className="cursor-pointer w-[27px] h-[27px]"
+                style={{
+                  backgroundImage: `url(${plus})`,
+                  backgroundRepeat: "no-repeat",
+                }}
+              />
+            </form>
+          </section>
         </div>
         <div className="w-1/4"></div>
       </div>
