@@ -7,14 +7,17 @@ const EDIT_TODO = "EDIT_TODO";
 
 const initialState = [
   {
+    itemId: 0,
     heading: "Things To Buy",
     todo: [
       {
+        todoId: 0,
         title: "Carrot",
         description: "Carrot Improves eyesight.",
         name: "Things To Buy",
       },
       {
+        todoId: 1,
         title: "Bicycle",
         description: "Bicycle makes commuting easier.",
         name: "Things To Buy",
@@ -22,14 +25,17 @@ const initialState = [
     ],
   },
   {
+    itemId: 1,
     heading: "Things To Sell",
     todo: [
       {
+        todoId: 0,
         title: "Carrot",
         description: "Carrot Improves eyesight.",
         name: "Things To Sell",
       },
       {
+        todoId: 1,
         title: "Bicycle",
         description: "Bicycle makes commuting easier",
         name: "Things To Sell",
@@ -48,9 +54,9 @@ export const addTodoList = (heading: String) => ({
   payload: { heading },
 });
 
-export const editTodo = (title: String, description: String) => ({
+export const editTodo = (title: String, description: String, id: Number) => ({
   type: EDIT_TODO,
-  payload: { title, description },
+  payload: { title, description, id },
 });
 
 export const todoReducer = (
@@ -60,10 +66,16 @@ export const todoReducer = (
     payload: {
       itemId: number;
       Todo: {
-        todoId: number;
         title: string;
         description: string;
         name: string;
+        todoId: number;
+      };
+      editedTodo: {
+        title: String;
+        name: String;
+        description: String;
+        todoId: number;
       };
       heading: string;
     };
@@ -74,7 +86,7 @@ export const todoReducer = (
 
     if (found) {
       found[0].todo.push(action.payload.Todo);
-      // console.log(found);
+      console.log(found);
 
       return [...state, found[0]];
     }
@@ -87,9 +99,7 @@ export const todoReducer = (
 
     return [...state, data];
   } else if (action.type === EDIT_TODO) {
-    // console.log(state);
-    console.log(action.payload);
-
+    // console.log(action.payload.editedTodo);
     return state;
   } else {
     return state;

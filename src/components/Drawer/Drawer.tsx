@@ -8,11 +8,12 @@ import { editTodo } from "../../reducers/todoReducers";
 const Drawer = () => {
   const dispatch = useDispatch();
   const { secondReducer } = useSelector((state) => state) as anotherType;
-  //   const { title, description } = secondReducer?.todoId;
   const [title, setTitle] = useState(secondReducer.todoId?.title);
   const [description, setDescription] = useState(
     secondReducer.todoId?.description
   );
+
+  //   console.log(secondReducer.todoId);
 
   useEffect(() => {
     setDescription(secondReducer.todoId?.description);
@@ -22,10 +23,18 @@ const Drawer = () => {
   const handleEdit = (e: any) => {
     e.preventDefault();
 
-    // console.log();
-    // const title =
+    if (secondReducer.todoId) secondReducer.todoId.title = title;
+    if (secondReducer.todoId) secondReducer.todoId.description = description;
 
-    dispatch(editTodo(e.target.title.value, e.target.description.value));
+    console.log(secondReducer.todoId);
+
+    dispatch(
+      editTodo(
+        secondReducer.todoId?.title,
+        secondReducer.todoId?.description,
+        secondReducer.todoId?.todoId
+      )
+    );
   };
 
   return (

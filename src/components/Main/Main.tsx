@@ -12,6 +12,7 @@ const Main = () => {
   const todos = useSelector((state) => state) as anotherType;
   const dispatch = useDispatch();
   const { secondReducer } = useSelector((state) => state) as anotherType;
+  const { firstReducer } = useSelector((state) => state) as anotherType;
   const { visibility } = secondReducer;
 
   // console.log(todos);
@@ -21,6 +22,7 @@ const Main = () => {
     const target = e.target as HTMLFormElement;
 
     const todo = {
+      todoId: firstReducer.length,
       title: e.currentTarget.todoTitle.value,
       description: e.currentTarget.todoDescription.value,
       name: target.name,
@@ -84,14 +86,14 @@ const Main = () => {
                 id="form"
                 name={item.heading?.split(" ").join(" ")}
               >
-                <div className="flex items-start justify-between">
+                <div className="flex items-start justify-between relative">
                   <div className="flex gap-[7.5px] items-center">
                     <img src={moneyBag} className="w-[24px] h-[24px]" alt="" />
                     <input
                       type="text"
                       placeholder="Add Todo"
                       name="todoTitle"
-                      className="bg-transparent focus:outline-none placeholder:font-bold placeholder:text-[18px]"
+                      className="bg-transparent px-[32px] focus:outline-none placeholder:font-bold placeholder:text-[18px] absolute w-full h-full"
                     />
                   </div>
 
@@ -100,7 +102,7 @@ const Main = () => {
                     id="plus"
                     value=""
                     alt="plus"
-                    className="cursor-pointer w-[27px] h-[27px]"
+                    className="cursor-pointer w-[27px] h-[27px] relative"
                     style={{
                       backgroundImage: `url(${plus})`,
                       backgroundRepeat: "no-repeat",

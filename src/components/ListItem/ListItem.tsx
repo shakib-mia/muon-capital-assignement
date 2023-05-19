@@ -6,6 +6,7 @@ import { setIsVisible } from "../../reducers/visibilityReducers";
 
 const ListItem = ({ todo, todoId, itemId }: any) => {
   const dispatch = useDispatch();
+  // console.log(todoId);
   // const showEdit = () => {
   //   // alert("dfksdj");
   // };
