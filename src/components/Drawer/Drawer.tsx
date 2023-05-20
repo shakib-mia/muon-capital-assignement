@@ -26,8 +26,6 @@ const Drawer = () => {
     if (secondReducer.todoId) secondReducer.todoId.title = title;
     if (secondReducer.todoId) secondReducer.todoId.description = description;
 
-    console.log(secondReducer.todoId);
-
     dispatch(
       editTodo(
         secondReducer.todoId?.title,
@@ -35,6 +33,7 @@ const Drawer = () => {
         secondReducer.todoId?.todoId
       )
     );
+    dispatch(setIsVisible(false, -1, -1));
   };
 
   return (
