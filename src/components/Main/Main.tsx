@@ -8,7 +8,9 @@ import ListItem from "../ListItem/ListItem";
 import { addTodo, addTodoList } from "../../reducers/todoReducers";
 import Drawer from "../Drawer/Drawer";
 
-const Main = () => {
+const Main = (props: { fullNavbar: Boolean; setFullNavbar: Function }) => {
+  const { fullNavbar, setFullNavbar } = props;
+
   const todos = useSelector((state) => state) as anotherType;
   const dispatch = useDispatch();
   const { secondReducer } = useSelector((state) => state) as anotherType;
@@ -64,9 +66,15 @@ const Main = () => {
     }
   };
 
+  // console.log(uniqueArray);
+
   // console.log(todos);
   return (
-    <div className="w-[82%] text-white">
+    <div
+      className={`transition ${
+        fullNavbar ? "w-[82%] text-white" : "w-[96%] text-white"
+      }`}
+    >
       <Topbar />
 
       <div className="flex">
@@ -75,7 +83,7 @@ const Main = () => {
             ${visibility ? "w-3/4" : "w-full"}
            h-screen grid grid-cols-3 gap-[13px] border-r-[5px] border-[#242731] p-[18px]`}
         >
-          {uniqueArray.map((item, id) => (
+          {uniqueArray.map((item, id, heading) => (
             <section key={id}>
               <h1 className="bg-[#242731] p-[15px] rounded-[12px] text-[16px] font-semibold mb-[3px]">
                 {item.heading}
@@ -119,7 +127,12 @@ const Main = () => {
               </form>
               <div className="mt-[15px] flex flex-col gap-[7px]">
                 {item.todo?.map((todo, id) => (
-                  <ListItem todo={todo} key={id} todoId={todo} />
+                  <ListItem
+                    todo={todo}
+                    key={id}
+                    todoId={todo}
+                    name={todo.name}
+                  />
                 ))}
               </div>
             </section>
@@ -152,6 +165,8 @@ const Main = () => {
         </div>
         {visibility && <Drawer />}
       </div>
+
+      {/* <CryptoPaymentsForm /> */}
     </div>
   );
 };

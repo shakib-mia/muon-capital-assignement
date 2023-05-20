@@ -17,7 +17,7 @@ export type TodoList = {
 export type anotherType = {
   firstReducer: {
     heading: String;
-    todo: { title: String; description: String }[];
+    todo: { title: String; description: String; name: String }[];
   }[];
 
   secondReducer: {

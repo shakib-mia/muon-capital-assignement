@@ -4,6 +4,7 @@ import { TodoType } from "./../types/types";
 const ADD_TODO = "ADD_TODO";
 const ADD_TODO_LIST = "ADD_TODO_LIST";
 const EDIT_TODO = "EDIT_TODO";
+const DELETE_TODO = "DELETE_TODO";
 
 const initialState = [
   {
@@ -59,6 +60,11 @@ export const editTodo = (title: String, description: String, id: Number) => ({
   payload: { title, description, id },
 });
 
+export const deleteTodo = (todo: Object) => ({
+  type: DELETE_TODO,
+  payload: todo,
+});
+
 export const todoReducer = (
   state = initialState,
   action: {
@@ -78,6 +84,8 @@ export const todoReducer = (
         todoId: number;
       };
       heading: string;
+      name: String;
+      todoId: number;
     };
   }
 ) => {
@@ -86,7 +94,6 @@ export const todoReducer = (
 
     if (found) {
       found[0].todo.push(action.payload.Todo);
-      console.log(found);
 
       return [...state, found[0]];
     }
@@ -100,6 +107,19 @@ export const todoReducer = (
     return [...state, data];
   } else if (action.type === EDIT_TODO) {
     // console.log(action.payload.editedTodo);
+    return state;
+  } else if (action.type === DELETE_TODO) {
+    const selectedList = state.find(
+      (item) => item.heading === action.payload.name
+    );
+
+    // console.log(selectedList);
+    const filteredItem = selectedList?.todo.filter(
+      (item) => item.todoId !== action.payload.todoId
+    );
+
+    filteredItem &&
+      selectedList?.todo.splice(0, selectedList?.todo.length, ...filteredItem);
     return state;
   } else {
     return state;
