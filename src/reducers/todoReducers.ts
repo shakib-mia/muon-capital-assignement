@@ -9,7 +9,7 @@ const DELETE_TODO = "DELETE_TODO";
 const initialState = [
   {
     itemId: 0,
-    heading: "Things To Buy",
+    id: "Things To Buy",
     todo: [
       {
         todoId: 0,
@@ -27,7 +27,7 @@ const initialState = [
   },
   {
     itemId: 1,
-    heading: "Things To Sell",
+    id: "Things To Sell",
     todo: [
       {
         todoId: 0,
@@ -50,12 +50,12 @@ export const addTodo = (Todo: TodoType, name: String) => ({
   payload: { Todo, name },
 });
 
-export const addTodoList = (heading: String) => ({
+export const addList = (id: String) => ({
   type: ADD_TODO_LIST,
-  payload: { heading },
+  payload: { id },
 });
 
-export const editTodo = (title: String, description: String, id: Number) => ({
+export const updateTodo = (title: String, description: String, id: Number) => ({
   type: EDIT_TODO,
   payload: { title, description, id },
 });
@@ -83,14 +83,14 @@ export const todoReducer = (
         description: String;
         todoId: number;
       };
-      heading: string;
+      id: string;
       name: String;
       todoId: number;
     };
   }
 ) => {
   if (action.type === ADD_TODO) {
-    const found = state.filter((st) => st.heading === action.payload.Todo.name);
+    const found = state.filter((st) => st.id === action.payload.Todo.name);
 
     if (found) {
       found[0].todo.push(action.payload.Todo);
@@ -98,9 +98,9 @@ export const todoReducer = (
       return [...state, found[0]];
     }
   } else if (action.type === ADD_TODO_LIST) {
-    const { heading } = action.payload;
+    const { id } = action.payload;
     const data = {
-      heading,
+      id,
       todo: [],
     };
 
@@ -109,9 +109,7 @@ export const todoReducer = (
     // console.log(action.payload.editedTodo);
     return state;
   } else if (action.type === DELETE_TODO) {
-    const selectedList = state.find(
-      (item) => item.heading === action.payload.name
-    );
+    const selectedList = state.find((item) => item.id === action.payload.name);
 
     // console.log(selectedList);
     const filteredItem = selectedList?.todo.filter(

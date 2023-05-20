@@ -5,13 +5,27 @@ import moneyBag from "./../../assets/icons/money-bag.webp";
 import plus from "./../../assets/icons/plus.webp";
 import { anotherType } from "../../types/types";
 import ListItem from "../ListItem/ListItem";
-import { addTodo, addTodoList } from "../../reducers/todoReducers";
+import { addTodo, addList } from "../../reducers/todoReducers";
 import Drawer from "../Drawer/Drawer";
+import GetTodos from "../../constant";
 
-const Main = (props: { fullNavbar: Boolean; setFullNavbar: Function }) => {
-  const { fullNavbar, setFullNavbar } = props;
+const Main = (props: { fullNavbar: Boolean }) => {
+  const { fullNavbar } = props;
 
-  const todos = useSelector((state) => state) as anotherType;
+  // console.log(GetTodos());
+
+  const todos = GetTodos() as {
+    firstReducer: {
+      itemId: Number;
+      id: String;
+      todo: {
+        todoId: Number;
+        title: String;
+        description: String;
+        name: String;
+      }[];
+    }[];
+  };
   const dispatch = useDispatch();
   const { secondReducer } = useSelector((state) => state) as anotherType;
   const { firstReducer } = useSelector((state) => state) as anotherType;
@@ -61,7 +75,7 @@ const Main = (props: { fullNavbar: Boolean; setFullNavbar: Function }) => {
     const target = e.target as HTMLFormElement;
 
     if (e.currentTarget.todoListName.value) {
-      dispatch(addTodoList(target.todoListName.value));
+      dispatch(addList(target.todoListName.value));
       e.currentTarget.reset();
     }
   };
@@ -83,16 +97,16 @@ const Main = (props: { fullNavbar: Boolean; setFullNavbar: Function }) => {
             ${visibility ? "w-3/4" : "w-full"}
            h-screen grid grid-cols-3 gap-[13px] border-r-[5px] border-[#242731] p-[18px]`}
         >
-          {uniqueArray.map((item, id, heading) => (
-            <section key={id}>
+          {uniqueArray.map((item, i, id) => (
+            <section key={i}>
               <h1 className="bg-[#242731] p-[15px] rounded-[12px] text-[16px] font-semibold mb-[3px]">
-                {item.heading}
+                {item.id}
               </h1>
               <form
                 className="bg-[#191B20] p-[13px] rounded-[16px]"
                 onSubmit={addTodoForm}
                 id="form"
-                name={item.heading?.split(" ").join(" ")}
+                name={item.id?.split(" ").join(" ")}
               >
                 <div className="flex items-start justify-between relative">
                   <div className="flex gap-[7.5px] items-center">

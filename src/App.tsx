@@ -9,6 +9,9 @@ function App() {
   const [walletAddress, setWalletAddress] = useState("");
 
   const checkConnection = async () => {
+    // window.ethereum.disconnect();
+    // console.log(window.ethereum.isConnected());
+
     if (window.ethereum) {
       try {
         const accounts = await window.ethereum.request({
@@ -16,6 +19,7 @@ function App() {
         });
 
         if (accounts.length) {
+          console.log(accounts);
           setWalletAddress(accounts[0]);
         }
 
@@ -41,7 +45,7 @@ function App() {
 
       <div className="flex">
         <Navbar fullNavbar={fullNavbar} setFullNavbar={setFullNavbar} />
-        <Main fullNavbar={fullNavbar} setFullNavbar={setFullNavbar} />
+        <Main fullNavbar={fullNavbar} />
       </div>
     </>
   );

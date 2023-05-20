@@ -5,18 +5,18 @@ export type TodoType = {
 };
 
 export type TodoList = {
-  heading: String;
+  id: String;
   todo: TodoType[];
 }[];
 
 // export type anotherType = {
-//   heading: String;
+//   id: String;
 //   todo: { title: String; description: String }[];
 // };
 
 export type anotherType = {
   firstReducer: {
-    heading: String;
+    id: String;
     todo: { title: String; description: String; name: String }[];
   }[];
 

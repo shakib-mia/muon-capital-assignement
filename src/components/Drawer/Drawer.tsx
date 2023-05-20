@@ -3,7 +3,7 @@ import { setIsVisible } from "../../reducers/visibilityReducers";
 import back from "./../../assets/icons/back.webp";
 import { anotherType } from "../../types/types";
 import { useEffect, useState } from "react";
-import { editTodo } from "../../reducers/todoReducers";
+import { updateTodo } from "../../reducers/todoReducers";
 
 const Drawer = () => {
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const Drawer = () => {
     if (secondReducer.todoId) secondReducer.todoId.description = description;
 
     dispatch(
-      editTodo(
+      updateTodo(
         secondReducer.todoId?.title,
         secondReducer.todoId?.description,
         secondReducer.todoId?.todoId
@@ -66,7 +66,7 @@ const Drawer = () => {
           <input
             type="submit"
             value="Save"
-            className="mt-[27px] px-[33px] py-[5px] bg-[#3772FF] rounded-[10px]"
+            className="mt-[27px] px-[33px] py-[5px] bg-[#3772FF] rounded-[10px] cursor-pointer"
           />
         </div>
       </form>
