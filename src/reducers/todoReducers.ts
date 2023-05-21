@@ -104,6 +104,8 @@ export const todoReducer = (
       todo: [],
     };
 
+    // console.log([...state, data]);
+
     return [...state, data];
   } else if (action.type === EDIT_TODO) {
     // console.log(action.payload.editedTodo);

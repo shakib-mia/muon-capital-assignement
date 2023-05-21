@@ -8,11 +8,21 @@ import ListItem from "../ListItem/ListItem";
 import { addTodo, addList } from "../../reducers/todoReducers";
 import Drawer from "../Drawer/Drawer";
 import GetTodos from "../../constant";
+// import { ethers } from "ethers";
 
 const Main = (props: { fullNavbar: Boolean }) => {
   const { fullNavbar } = props;
 
-  // console.log(GetTodos());
+  // const provider = ethers.getDefaultProvider("mainnet");
+
+  // const contractAddress = "0xdAF06E9F17C7aF4CD781DA3CdfC9338ffab440cD";
+  // const contractABI = require("./ctranctABI.json");
+
+  // const contract = new ethers.Contract(contractAddress, contractABI, provider);
+  // // console.log(contract.target);
+  // const result = contract.someFunction();
+
+  // console.log(result);
 
   const todos = GetTodos() as {
     firstReducer: {
@@ -53,7 +63,7 @@ const Main = (props: { fullNavbar: Boolean }) => {
     } else {
       // dispatch(addTodo(todo, target.name));
       dispatch(addTodo(todo, "jksjklfjkd"));
-      // console.log(todo);
+
       e.currentTarget.reset();
     }
   };
